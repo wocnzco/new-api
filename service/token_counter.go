@@ -29,7 +29,7 @@ func InitTokenEncoders() {
 	if err != nil {
 		common.FatalLog(fmt.Sprintf("failed to get gpt-4 token encoder: %s", err.Error()))
 	}
-	for model, _ := range common.ModelRatio {
+	for model, _ := range common.DefaultModelRatio {
 		if strings.HasPrefix(model, "gpt-3.5") {
 			tokenEncoderMap[model] = gpt35TokenEncoder
 		} else if strings.HasPrefix(model, "gpt-4") {
@@ -208,7 +208,7 @@ func CountTokenInput(input any, model string, check bool) (int, error, bool) {
 		}
 		return CountTokenText(text, model, check)
 	}
-	return 0, errors.New("unsupported input type"), false
+	return CountTokenInput(fmt.Sprintf("%v", input), model, check)
 }
 
 func CountAudioToken(text string, model string, check bool) (int, error, bool) {
