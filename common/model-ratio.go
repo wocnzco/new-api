@@ -26,6 +26,7 @@ var DefaultModelRatio = map[string]float64{
 	"gpt-4-turbo-preview":       5,    // $0.01 / 1K tokens
 	"gpt-4-vision-preview":      5,    // $0.01 / 1K tokens
 	"gpt-4-1106-vision-preview": 5,    // $0.01 / 1K tokens
+	"gpt-4-turbo":               5,    // $0.01 / 1K tokens
 	"gpt-3.5-turbo":             0.25, // $0.0015 / 1K tokens
 	"gpt-3.5-turbo-0301":        0.75,
 	"gpt-3.5-turbo-0613":        0.75,
@@ -75,7 +76,10 @@ var DefaultModelRatio = map[string]float64{
 	"gemini-pro-vision":         1, // $0.00025 / 1k characters -> $0.001 / 1k tokens
 	"gemini-1.0-pro-vision-001": 1,
 	"gemini-1.0-pro-001":        1,
-	"gemini-1.5-pro":            1,
+	"gemini-1.5-pro-latest":     1,
+	"gemini-1.0-pro-latest":     1,
+	"gemini-1.0-pro-vision-latest":   1,
+	"gemini-ultra":              1,
 	"chatglm_turbo":             0.3572, // ￥0.005 / 1k tokens
 	"chatglm_pro":               0.7143, // ￥0.01 / 1k tokens
 	"chatglm_std":               0.3572, // ￥0.005 / 1k tokens
@@ -201,16 +205,16 @@ func GetCompletionRatio(name string) float64 {
 		return 4.0 / 3.0
 	}
 	if strings.HasPrefix(name, "gpt-4") {
-		if strings.HasSuffix(name, "preview") {
+		if strings.HasPrefix(name, "gpt-4-turbo")|| strings.HasSuffix(name, "preview") {
 			return 3
 		}
 		return 2
 	}
-	if strings.HasPrefix(name, "claude-instant-1") {
+	if strings.Contains(name, "claude-instant-1") {
 		return 3
-	} else if strings.HasPrefix(name, "claude-2") {
+	} else if strings.Contains(name, "claude-2") {
 		return 3
-	} else if strings.HasPrefix(name, "claude-3") {
+	} else if strings.Contains(name, "claude-3") {
 		return 5
 	}
 	if strings.HasPrefix(name, "mistral-") {
