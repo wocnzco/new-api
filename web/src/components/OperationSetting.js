@@ -38,7 +38,9 @@ const OperationSetting = () => {
     StopOnSensitiveEnabled: '',
     SensitiveWords: '',
     MjNotifyEnabled: '',
+    MjAccountFilterEnabled: '',
     MjModeClearEnabled: '',
+    MjForwardUrlEnabled: '',
     DrawingEnabled: '',
     DataExportEnabled: '',
     DataExportDefaultTime: 'hour',
@@ -320,6 +322,18 @@ const OperationSetting = () => {
               checked={inputs.MjNotifyEnabled === 'true'}
               label='允许回调（会泄露服务器ip地址）'
               name='MjNotifyEnabled'
+              onChange={handleInputChange}
+            />
+            <Form.Checkbox
+              checked={inputs.MjAccountFilterEnabled === 'true'}
+              label='允许AccountFilter参数'
+              name='MjAccountFilterEnabled'
+              onChange={handleInputChange}
+            />
+            <Form.Checkbox
+              checked={inputs.MjForwardUrlEnabled === 'true'}
+              label='开启之后将上游地址替换为服务器地址'
+              name='MjForwardUrlEnabled'
               onChange={handleInputChange}
             />
             <Form.Checkbox
